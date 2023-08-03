@@ -5,10 +5,12 @@ import {
 } from 'express';
 
 import authRouter from './auth.router';
+import productRouter from './product.router';
 
 const routers: Router = Router();
 
 routers.use("/auth", authRouter);
+routers.use("/product", productRouter);
 
 routers.get("/", async (req: Request, res: Response) => {
   res.status(200).json({

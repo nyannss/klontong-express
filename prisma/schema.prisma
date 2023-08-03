@@ -23,6 +23,27 @@ model Token {
   expired_time DateTime
 }
 
+model Category {
+  id       Int       @id @default(autoincrement())
+  name     String
+  products Product[]
+}
+
+model Product {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String
+  price       Int
+  sku         String
+  weight      Float
+  width       Int
+  length      Int
+  height      Int
+  image       String?
+  categoryId  Int
+  category    Category @relation(fields: [categoryId], references: [id])
+}
+
 enum Role {
   ADMIN
   CUSTOMER

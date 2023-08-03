@@ -78,7 +78,6 @@ const login = async (req: Request, res: Response) => {
     const token = jwt.sign(payload, secret, {
       expiresIn: `${expiredInHour}h`,
     });
-    console.log(token.length);
 
     await prisma.token.create({
       data: {
