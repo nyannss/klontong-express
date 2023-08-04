@@ -5,12 +5,13 @@
   "main": "index.ts",
   "scripts": {
     "start": "nodemon src/index.ts",
-    "build": "rimraf dist && tsc",
+    "build": "prisma generate && rimraf dist && tsc",
     "ts.check": "tsc --project tsconfig.json",
     "add-build": "git add dist",
     "dev": "nodemon",
     "migrate:dev": "prisma migrate dev",
-    "migrate:deploy": "prisma migrate deploy"
+    "migrate:deploy": "prisma migrate deploy",
+    "postinstall": "prisma generate"
   },
   "repository": {
     "type": "git",
