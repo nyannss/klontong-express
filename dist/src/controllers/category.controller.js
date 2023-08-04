@@ -19,7 +19,7 @@ const index = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const { page = 1, limit = 10, search = "", sortBy = "id" } = req.query;
         const take = Number(limit);
         const skip = (Number(page) - 1) * Number(limit);
-        const products = yield prisma_1.default.category.findMany({
+        const categories = yield prisma_1.default.category.findMany({
             skip,
             take,
             where: {
@@ -37,7 +37,7 @@ const index = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         });
         res.status(200).json({
             msg: "Fetched",
-            data: products,
+            data: categories,
         });
     }
     catch (err) {
@@ -95,7 +95,7 @@ const update = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const updatedData = {
             name: name !== null && name !== void 0 ? name : originData.name,
         };
-        const data = yield prisma_1.default.product.update({
+        const data = yield prisma_1.default.category.update({
             where: {
                 id: Number(id),
             },

@@ -3,6 +3,8 @@ import {
   Response,
 } from 'express';
 
+import { Category } from '@prisma/client';
+
 import prisma from '../config/prisma';
 import { errorResponse } from '../helpers/errorHandler';
 
@@ -12,7 +14,7 @@ const index = async (req: Request, res: Response) => {
 
     const take = Number(limit);
     const skip = (Number(page) - 1) * Number(limit);
-    const products = await prisma.category.findMany({
+    const categories = await prisma.category.findMany({
       skip,
       take,
       where: {
@@ -30,7 +32,7 @@ const index = async (req: Request, res: Response) => {
     });
     res.status(200).json({
       msg: "Fetched",
-      data: products,
+      data: categories,
     });
   } catch (err) {
     errorResponse(err, res);
@@ -57,7 +59,7 @@ const show = async (req: Request, res: Response) => {
 
 const store = async (req: Request, res: Response) => {
   try {
-    let { name }: Product = req.body;
+    let { name }: Category = req.body;
 
     const data = await prisma.category.create({
       data: {
@@ -78,7 +80,7 @@ const update = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
 
-    let { name }: Product = req.body;
+    let { name }: Category = req.body;
 
     const originData = await prisma.category.findUnique({
       where: {
@@ -96,7 +98,7 @@ const update = async (req: Request, res: Response) => {
       name: name ?? originData.name,
     };
 
-    const data = await prisma.product.update({
+    const data = await prisma.category.update({
       where: {
         id: Number(id),
       },
