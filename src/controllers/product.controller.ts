@@ -108,6 +108,7 @@ const store = async (req: Request, res: Response) => {
         fileName,
       });
       image = imgUpload.url;
+      console.log(image);
     }
 
     const data = await prisma.product.create({

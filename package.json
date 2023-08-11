@@ -7,7 +7,6 @@
     "start": "nodemon src/index.ts",
     "build": "prisma generate && rimraf dist && tsc",
     "ts.check": "tsc --project tsconfig.json",
-    "add-build": "git add dist",
     "dev": "nodemon",
     "migrate:dev": "prisma migrate dev",
     "migrate:deploy": "prisma migrate deploy",
@@ -21,11 +20,6 @@
     "klontong",
     "crud",
     "express"
-  ],
-  "pre-commit": [
-    "ts.check",
-    "build",
-    "add-build"
   ],
   "author": "nyannss",
   "license": "ISC",
@@ -53,7 +47,6 @@
     "@types/multer": "^1.4.7",
     "@types/node": "^20.4.6",
     "nodemon": "^3.0.1",
-    "pre-commit": "^1.2.2",
     "prisma": "^5.1.0",
     "rimraf": "^5.0.1",
     "ts-node": "^10.9.1",

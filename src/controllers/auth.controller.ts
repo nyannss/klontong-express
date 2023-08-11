@@ -54,7 +54,7 @@ const login = async (req: Request, res: Response) => {
     });
 
     if (!user)
-      return res.status(404).json({
+      return res.status(401).json({
         msg: "Invalid email & password combination",
       });
 

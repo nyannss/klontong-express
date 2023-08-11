@@ -3,14 +3,11 @@ import {
   Request,
   Response,
 } from 'express';
-import jwt, { JwtPayload } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 
 import env from '../config/env';
 import prisma from '../config/prisma';
-
-export interface CustomRequest extends Request {
-  token: string | JwtPayload;
-}
+import { CustomRequest } from '../types/request';
 
 async function check(req: Request, res: Response, next: NextFunction) {
   try {
@@ -38,14 +35,17 @@ async function check(req: Request, res: Response, next: NextFunction) {
     const decoded = jwt.verify(token, env.JWT_SECRET_KEY);
 
     (req as CustomRequest).token = decoded;
+    next();
   } catch (err) {
     res.status(401).send("Please authenticate");
   }
 }
 
 async function admin(req: Request, res: Response, next: NextFunction) {
-  const userRole = (req as CustomRequest).token;
-  if (typeof userRole !== "object" || userRole.token !== "ADMIN") {
+  const uInfo = (req as CustomRequest).token;
+  // console.log(userRole);
+
+  if (typeof uInfo !== "object" || uInfo.role !== "ADMIN") {
     return res.status(403).json({
       status: 403,
       msg: "Access denied! Role not authorized",
